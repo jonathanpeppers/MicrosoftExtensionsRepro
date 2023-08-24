@@ -14,18 +14,18 @@ public class MainActivity : Activity
 
         // Microsoft.Extensions thingies
         var provider = new ServiceCollection()
-            .AddSingleton<IFoo>(_ => new FooService())
+            .AddScoped<IFoo>(_ => new FooService())
             .BuildServiceProvider();
 
-        var foo = provider.GetService<IFoo>();
-        if (foo != null)
-        {
-            foo.DoStuff();
-        }
-        else
-        {
-            Console.WriteLine("foo is null!");
-        }
+        Scoped(provider);
+        Scoped(provider);
+    }
+
+    static void Scoped(IServiceProvider provider)
+    {
+        using var scope = provider.CreateScope();
+        var foo = scope.ServiceProvider.GetRequiredService<IFoo>();
+        foo.DoStuff();
     }
 }
 
@@ -36,5 +36,8 @@ interface IFoo
 
 class FooService : IFoo
 {
-    public void DoStuff() => Console.WriteLine("Did it!");
+    static int count;
+    int ID = ++count;
+
+    public void DoStuff() => Console.WriteLine($"Did it! ID: {ID}");
 }
