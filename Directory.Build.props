@@ -1,0 +1,12 @@
+<Project>
+  <!-- Default settings for -t:Record -p:Recording=true -->
+  <PropertyGroup Condition=" '$(Recording)' == 'true' ">
+    <Configuration>Release</Configuration>
+    <AndroidNeedsInternetPermission>true</AndroidNeedsInternetPermission>
+    <AndroidEnableAotProfiler>true</AndroidEnableAotProfiler>
+    <RunAOTCompilation>false</RunAOTCompilation>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(Recording)' == 'true' ">
+    <PackageReference Include="Mono.AotProfiler.Android" Version="7.0.0" />
+  </ItemGroup>
+</Project>

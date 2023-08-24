@@ -1,0 +1,12 @@
+<Project DefaultTargets="Record">
+  <PropertyGroup>
+    <RuntimeIdentifier Condition=" '$(RuntimeIdentifier)' == '' ">android-arm64</RuntimeIdentifier>
+    <ProjectFolder>../MicrosoftExtensionsRepro/</ProjectFolder>
+    <CSProj>$(ProjectFolder)MicrosoftExtensionsRepro.csproj</CSProj>
+  </PropertyGroup>
+  <Target Name="Record">
+    <RemoveDir Directories="$(ProjectFolder)obj;$(ProjectFolder)bin" />
+    <MSBuild Projects="$(CSProj)" Targets="Restore" Properties="Recording=true" />
+    <MSBuild Projects="$(CSProj)" Targets="Record" Properties="Recording=true;RuntimeIdentifier=$(RuntimeIdentifier)" />
+  </Target>
+</Project>
