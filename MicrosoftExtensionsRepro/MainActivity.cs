@@ -18,7 +18,9 @@ public class MainActivity : Activity
             .BuildServiceProvider();
 
         Scoped(provider);
-        Scoped(provider);
+
+        // Second call would hit S.R.E
+        //Scoped(provider);
     }
 
     static void Scoped(IServiceProvider provider)
